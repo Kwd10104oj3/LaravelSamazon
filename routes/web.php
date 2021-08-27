@@ -46,6 +46,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
  Route::resource('categories', 'Dashboard\CategoryController')->middleware('auth:admins');
  Route::resource('products', 'Dashboard\ProductController')->middleware('auth:admins');
  Route::resource('users', 'Dashboard\UserController')->middleware('auth:admins');
+ Route::get('orders', 'Dashboard\OrderController@index')->middleware('auth:admins');
+ Route::get('products/import/csv', 'Dashboard\ProductController@import')->middleware('auth:admins');
+ Route::post('products/import/csv', 'Dashboard\ProductController@import_csv')->middleware('auth:admins');
 });
 
 URL::forceScheme('https');
