@@ -29,9 +29,10 @@
             @if ($product->image !== null)
             <img src="{{ Storage::disk('s3')->url($product->image) }}" id="product-image-preview" class="img-fluid w-25">
             @else
-            <img src="#" id="product-image-preview">
+            <img src="#" id="product-image-preview" class="img-fluid w-25">
             @endif
-            <input type="file" name="image" id="product-image">
+            <label for="product-image" class="btn samazon-submit-button">画像を選択</label>
+            <input type="file" name="image" id="product-image" onChange="handleImage(this.files)" style="display: none;">
         </div>
         <div class="form-inline mt-4 mb-4 row">
             <label for="product-price" class="col-2 d-flex justify-content-start">オススメ?</label>
@@ -55,16 +56,15 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-    $("#product-image").change(function() {
-        if (this.files && this.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                $("#product-image-preview").attr("src", e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
+    function handleImage(image) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let imagePreview = document.getElementById("product-image-preview");
+            imagePreview.src = reader.result;
         }
-    });
+        console.log(image);
+        reader.readAsDataURL(image[0]);
+    }
 </script>
 @endsection 
