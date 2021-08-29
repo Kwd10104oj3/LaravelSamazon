@@ -34,7 +34,7 @@
                     <a href="{{route('products.show', $product)}}">
                 <td>
                 @if ($product->image !== "")
-                <img src="{{ asset('storage/products/'.$product->image) }}" class="h-10 img-fluid">
+                <img src="{{ Storage::disk('s3')->url($product->image) }}" class="img-thumbnail">
                 @else
                 <img src="{{ asset('img/dummy.png')}}" class="h-10 img-fuild">
                 @endif
